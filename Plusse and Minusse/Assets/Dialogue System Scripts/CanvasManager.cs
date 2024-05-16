@@ -28,19 +28,7 @@ public class CanvasManager : MonoBehaviour
     
     // Coroutine for typing dialogue text
     public Coroutine typingCoroutine;
-
-    private void Start()
-    {
-        try
-        {
-            textBoxText = textBox.GetComponentInChildren<TextMeshProUGUI>();
-            speakerBoxText = speakerBox.GetComponentInChildren<TextMeshProUGUI>();
-        }
-        catch
-        {
-            throw new Exception("@CanvasManager: Text components not found!");
-        }
-    }
+    
     
     // Shows character image on one of the image positions
     public void ShowChar(string[] parameterList)

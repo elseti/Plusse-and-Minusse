@@ -53,7 +53,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         LoadDialogueConstants(); // Load variables from SO
         variableManager.LoadDialogueVariables(dialogueVariableText);
-        LoadDialogueList(dialogueTextPath);
+        // LoadDialogueList(dialogueTextPath);
         _silenceSfx = Resources.Load<AudioClip>("DialogueSystem/silence");
     }
 
