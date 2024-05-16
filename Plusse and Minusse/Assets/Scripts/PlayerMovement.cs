@@ -48,11 +48,4 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    public void FreezePlayer(){
-        freezePlayer = true;
-    }
-
-    public void UnfreezePlayer(){
-        freezePlayer = false;
-    }
 }
