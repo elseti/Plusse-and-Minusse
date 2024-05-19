@@ -7,25 +7,36 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public float speed = 10f;
 
-    public bool freezePlayer = false;
+    public AudioClip[] footstepsList;
 
     private float _horizontal;
     private Animator _playerAnimator;
+    private AudioSource _playerAudio;
+    private float _timeElapsed;
+    private bool _freezePlayer = false;
 
     private void Start()
     {
         _playerAnimator = rb.gameObject.GetComponent<Animator>();
+        _playerAudio = GetComponent<AudioSource>();
     }
     
     private void Update()
     {
         // Gives a value between -1 and 1
         _horizontal = Input.GetAxisRaw("Horizontal"); // -1 is left, 1 is right
+        _timeElapsed += Time.deltaTime;
+        if (_timeElapsed > 0.65)
+        {
+            _playerAudio.PlayOneShot(footstepsList[Random.Range(0, footstepsList.Length)]);
+            _timeElapsed = 0;
+        }
     }
 
     void FixedUpdate()
     {
-        if(!freezePlayer){
+        print(_freezePlayer);
+        if(!_freezePlayer){
 
             if(_horizontal == 0){
                 _playerAnimator.Play("Player Idle");
@@ -43,9 +54,22 @@ public class PlayerMovement : MonoBehaviour
         }
         else{
             _playerAnimator.Play("Player Idle");
-            rb.constraints = RigidbodyConstraints.FreezeAll;
+            
         }
         
+    }
+
+    public void FreezePlayer()
+    {
+        print("freezed");
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        _freezePlayer = true;
+    }
+
+    public void UnfreezePlayer()
+    {
+        rb.constraints = RigidbodyConstraints.None;
+        _freezePlayer = false;
     }
 
 }

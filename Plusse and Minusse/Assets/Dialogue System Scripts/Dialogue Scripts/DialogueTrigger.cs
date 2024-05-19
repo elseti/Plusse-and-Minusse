@@ -38,6 +38,8 @@ public class DialogueTrigger : MonoBehaviour
     
     public void PlayScript()
     {
+        print("freeze");
+        GameManager.instance.FreezePlayer();
         _isDialoguePlaying = true;
         DialogueManager.instance.LoadDialogueList(textPath);
     }

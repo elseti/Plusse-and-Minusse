@@ -140,7 +140,7 @@ public class DialogueManager : Singleton<DialogueManager>
         _currDialogueList = null;
 
         // hide all boxes
-        canvasManager.HideCanvas();
+        // canvasManager.HideCanvas();
         
         // clear all text
         canvasManager.speakerBoxText.text = "";

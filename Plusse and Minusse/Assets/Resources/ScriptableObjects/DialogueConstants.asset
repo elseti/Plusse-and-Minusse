@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textSpeed: 30
   enableFade: 0
-  typingSfx: {fileID: 0}
-  dialogueContinueSfx: {fileID: 8300000, guid: 70646ab4899f74b4eaf0c46ffe883d97, type: 3}
+  typingSfx: {fileID: 8300000, guid: 5866c27595c5847f88e9da2b56e49aa2, type: 3}
+  dialogueContinueSfx: {fileID: 8300000, guid: bb372a4e5e708473a9cc2e7652364d05, type: 3}
   sfxVolume: 1
   bgmVolume: 1
   voiceVolume: 1

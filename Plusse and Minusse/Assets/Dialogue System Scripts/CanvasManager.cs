@@ -95,6 +95,8 @@ public class CanvasManager : MonoBehaviour
 
     public void HideCanvas()
     {
+        // unfreeze player
+        GameManager.instance.UnfreezePlayer();
         canvasGroup.gameObject.SetActive(false);
     }
 
