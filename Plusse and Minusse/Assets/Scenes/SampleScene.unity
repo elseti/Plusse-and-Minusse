@@ -2222,7 +2222,7 @@ GameObject:
   - component: {fileID: 515739955}
   - component: {fileID: 515739954}
   m_Layer: 5
-  m_Name: minusse action
+  m_Name: minusse BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3186,7 +3186,7 @@ GameObject:
   - component: {fileID: 1045030017}
   - component: {fileID: 1045030016}
   m_Layer: 5
-  m_Name: plusse action
+  m_Name: plusse BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3352,7 +3352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1115600032
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3495,7 +3495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1169848504}
   m_Layer: 5
-  m_Name: ' Monster Action'
+  m_Name: ' Monster UI'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4300,6 +4300,24 @@ MonoBehaviour:
   battleState: 0
   battleType: 0
   cameraAnimator: {fileID: 160067127}
+  allyUI: {fileID: 1482176841}
+  monsterUI: {fileID: 1169848503}
+  term1: {fileID: 285677503}
+  term2: {fileID: 2105586091}
+  plusseHPBar: {fileID: 823390233}
+  minusseHPBar: {fileID: 539279053}
+  allyHP: {fileID: 53305502}
+  monsterHPBar: {fileID: 970374779}
+  monsterHP: {fileID: 260933576}
+  plusseBG: {fileID: 1045030014}
+  minusseBG: {fileID: 515739952}
+  choiceButtons:
+  - {fileID: 786175294}
+  - {fileID: 1027853354}
+  - {fileID: 313125878}
+  battleCanvas: {fileID: 1115600033}
+  choiceRange: 000000000a000000
+  term2Range: 0100000003000000
 --- !u!4 &1419517637
 Transform:
   m_ObjectHideFlags: 0
@@ -4676,7 +4694,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482176842}
   m_Layer: 5
-  m_Name: Hero Action
+  m_Name: Ally UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

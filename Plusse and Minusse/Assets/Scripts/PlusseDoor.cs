@@ -13,6 +13,12 @@ namespace DefaultNamespace
             {
                 GameManager.instance.StartBattle(BattleManager.BattleType.PLUSSE);
             }
+            
+            // for testing
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                GameManager.instance.StartBattle(BattleManager.BattleType.PLUSSE);
+            }
         }
 
         private void OnTriggerEnter(Collider other)
