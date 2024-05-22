@@ -177,7 +177,14 @@ namespace DefaultNamespace
                 {
                     // create random choices
                     string random = Random.Range(choiceRange[0], choiceRange[1] + 1).ToString();
-                    // while (random1 == random2) random2 = Random.Range(choiceRange[0], choiceRange[1]+1);
+                    
+                    // make sure no choice is the same
+                    for (int y = 0; y < x; y++)
+                    {
+                        print("y: " + choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text + " x: " + choiceButtons[x].GetComponentInChildren<TextMeshProUGUI>().text);
+                        while (choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text == random) random = Random.Range(choiceRange[0], choiceRange[1]+1).ToString();
+                    }
+                    
                     choiceButtons[x].GetComponentInChildren<TextMeshProUGUI>().text = random;
                     choiceButtons[x].GetComponentInChildren<Button>().onClick.AddListener(OnWrongButton);
                 }
@@ -307,7 +314,6 @@ namespace DefaultNamespace
         private int CalculateBasicAttack(CharacterStats attacker, CharacterStats receiver)
         {
             int damage = (attacker.attack * attackMultiplier + Random.Range(lowRandomRange, highRandomRange)) - (receiver.defence + Random.Range(lowRandomRange, highRandomRange));
-            print("damage " + damage);
             return damage;
         }
         
@@ -315,7 +321,6 @@ namespace DefaultNamespace
         {
             int damage = (attacker.attack * attackMultiplier * ultimateMultiplier + Random.Range(lowRandomRange, highRandomRange)) - (receiver.defence + Random.Range(lowRandomRange, highRandomRange));
             if(damage < 0) damage = 0;
-            print("damage " + damage);
             return damage;
         }
             
@@ -324,8 +329,6 @@ namespace DefaultNamespace
         public IEnumerator ActionWait(float time, int damage)
         {
             print("in action wait");
-            
-            print("coroutine damage: " + damage);
             
             yield return new WaitForSeconds(time);
             

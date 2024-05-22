@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         // Gives a value between -1 and 1
         _horizontal = Input.GetAxisRaw("Horizontal"); // -1 is left, 1 is right
         _timeElapsed += Time.deltaTime;
-        if (_timeElapsed > 0.65 && _isMoving)
+        if (_timeElapsed > 0.65 && _isMoving &&!_freezePlayer)
         {
             _playerAudio.PlayOneShot(footstepsList[Random.Range(0, footstepsList.Length)]);
             _timeElapsed = 0;
