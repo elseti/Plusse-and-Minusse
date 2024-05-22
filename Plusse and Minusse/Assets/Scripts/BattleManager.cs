@@ -149,6 +149,7 @@ namespace DefaultNamespace
             endBattle.Invoke();
             BattleSetup();
             GameManager.instance.UnfreezePlayer();
+            GameManager.instance.PlayBGM(0);
         }
         
         
@@ -247,6 +248,9 @@ namespace DefaultNamespace
             plusseStats.currHealth = plusseStats.maxHealth;
             minusseStats.currHealth = minusseStats.maxHealth;
             monsterStats.currHealth = monsterStats.maxHealth;
+            
+            // play BGM
+            GameManager.instance.PlayBGM(1);
         }
         
         public void PlusseSetup()

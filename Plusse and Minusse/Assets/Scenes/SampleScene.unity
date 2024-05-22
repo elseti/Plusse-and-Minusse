@@ -649,14 +649,14 @@ MonoBehaviour:
     m_MinDuration: 0
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 0.5
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
+  m_CustomBlends: {fileID: 11400000, guid: 7f58a358a586c4d8cb88f0c642ea5d60, type: 2}
   m_ParentHash:
   - m_Hash: -280681401
     m_ParentHash: 756556552
@@ -1716,6 +1716,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  bgmList:
+  - {fileID: 8300000, guid: 7837195c01e194938b12ba21bf5170cb, type: 3}
+  - {fileID: 8300000, guid: fbed1e25a461345ec88ee0df05f7c983, type: 3}
+  bgmSource: {fileID: 222220428032923508}
 --- !u!4 &329009292
 Transform:
   m_ObjectHideFlags: 0
@@ -1886,10 +1890,10 @@ MonoBehaviour:
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
+  m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 0.5
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -4706,8 +4710,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.9999995, y: 9.999999, z: 0.19999999}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4.4549465, y: 9.999999, z: 0.19999999}
+  m_Center: {x: -0.1436297, y: 0, z: 0}
 --- !u!114 &1435969699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5847,7 +5851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3018868, g: 0.118191525, b: 0.118191525, a: 0.3529412}
+  m_Color: {r: 0.3018868, g: 0.118191525, b: 0.118191525, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
