@@ -54,7 +54,7 @@ namespace DefaultNamespace
         public UnityEvent monsterTurn;
         public UnityEvent endBattle;
 
-        private bool _isCoroutineRunning;
+        private Coroutine _currentCoroutine;
         
         // triggered by doors
         public void StartBattle(BattleType battleType)
@@ -81,7 +81,6 @@ namespace DefaultNamespace
             cameraAnimator.Play("Plusse");
 
             SetChoiceButtons();
-            
         }
 
         public void MinusseTurn()
@@ -115,27 +114,41 @@ namespace DefaultNamespace
             
             cameraAnimator.Play("Monster");
 
-            if(!_isCoroutineRunning) StartCoroutine(MonsterWait(2f));
+            if(_currentCoroutine!=null) StopCoroutine(_currentCoroutine);
+            _currentCoroutine = StartCoroutine(MonsterWait(2f));
         }
 
         public void WinBattle()
         {
             print("win");
+            
+            // Todo - victory
+            
             cameraAnimator.Play("Hallway");
             GameManager.instance.UnfreezePlayer();
+            EndBattle();
         }
 
         public void LoseBattle()
         {
             print("lose");
+            
+            // Todo - lose
+            
             cameraAnimator.Play("Hallway");
             GameManager.instance.UnfreezePlayer();
+            EndBattle();
         }
 
         public void EndBattle()
         {
-            endBattle.Invoke();
             print("in end button");
+            
+            battleCanvas.gameObject.SetActive(false);
+            
+            endBattle.Invoke();
+            BattleSetup();
+            GameManager.instance.UnfreezePlayer();
         }
         
         
@@ -185,6 +198,7 @@ namespace DefaultNamespace
             if (battleState == BattleState.PLUSSETURN)
             {
                 damage = CalculateBasicAttack(plusseStats, monsterStats);
+                print("damage from plusse: "+damage);
             }
             else
             {
@@ -193,7 +207,8 @@ namespace DefaultNamespace
             
             MonsterSetup();
             
-            if(!_isCoroutineRunning) StartCoroutine(ActionWait(2f, damage));
+            if (_currentCoroutine != null) StopCoroutine(_currentCoroutine);
+            _currentCoroutine = StartCoroutine(ActionWait(2f, damage));
         }
 
         public void OnWrongButton()
@@ -203,7 +218,8 @@ namespace DefaultNamespace
             
             MonsterSetup();
 
-            if(!_isCoroutineRunning) StartCoroutine(ActionWait(2f, 0));
+            if (_currentCoroutine != null) StopCoroutine(_currentCoroutine);
+            _currentCoroutine = StartCoroutine(ActionWait(2f, 0));
         }
         
         // Set up for start / plusse / minusse / monster UI
@@ -291,7 +307,6 @@ namespace DefaultNamespace
         private int CalculateBasicAttack(CharacterStats attacker, CharacterStats receiver)
         {
             int damage = (attacker.attack * attackMultiplier + Random.Range(lowRandomRange, highRandomRange)) - (receiver.defence + Random.Range(lowRandomRange, highRandomRange));
-            if(damage < 0) damage = 0;
             print("damage " + damage);
             return damage;
         }
@@ -310,16 +325,16 @@ namespace DefaultNamespace
         {
             print("in action wait");
             
-            _isCoroutineRunning = true;
+            print("coroutine damage: " + damage);
+            
             yield return new WaitForSeconds(time);
             
-            // monster takes damage, update monster HP.
+            // monster takes damage, update monster HP
             monsterDamage.gameObject.SetActive(true);
             monsterDamage.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
             monsterStats.currHealth -= damage;
+            print("damage: " + damage);
             print(monsterStats.currHealth);
-            
-            _isCoroutineRunning = false;
             
             if (monsterStats.currHealth <= 0)
             {
@@ -327,6 +342,9 @@ namespace DefaultNamespace
                 monsterStats.currHealth = 0;
                 monsterHP.text = 0 + "/ " + monsterStats.maxHealth;
                 battleState = BattleState.WIN;
+
+                yield return new WaitForSeconds(time);
+                
                 WinBattle();
             }
             else
@@ -344,13 +362,10 @@ namespace DefaultNamespace
         {
             print("in monster wait");
             
-            _isCoroutineRunning = true;
             yield return new WaitForSeconds(time);
             
             // ally takes damage
             allyDamage.gameObject.SetActive(true);
-            
-            _isCoroutineRunning = false;
             
             if(battleType == BattleType.PLUSSE) PlusseTurn();
             else if(battleType == BattleType.MINUSSE) MinusseTurn();

@@ -1614,12 +1614,84 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1506429766}
+        m_TargetAssemblyTypeName: DefaultNamespace.PlusseDoor, Assembly-CSharp
+        m_MethodName: FreezeTrigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1545241055}
+        m_TargetAssemblyTypeName: DefaultNamespace.MinusseDoor, Assembly-CSharp
+        m_MethodName: FreezeTrigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1749174}
+        m_TargetAssemblyTypeName: DefaultNamespace.AllDoor, Assembly-CSharp
+        m_MethodName: FreezeTrigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   unfreezePlayer:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1435969699}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: UnfreezePlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1506429766}
+        m_TargetAssemblyTypeName: DefaultNamespace.PlusseDoor, Assembly-CSharp
+        m_MethodName: UnfreezeTrigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1545241055}
+        m_TargetAssemblyTypeName: DefaultNamespace.MinusseDoor, Assembly-CSharp
+        m_MethodName: UnfreezeTrigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1749174}
+        m_TargetAssemblyTypeName: DefaultNamespace.AllDoor, Assembly-CSharp
+        m_MethodName: UnfreezeTrigger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4474,9 +4546,9 @@ MonoBehaviour:
   plusseStats: {fileID: 11400000, guid: 2806db68367ca4e8a9ec823f824e1d14, type: 2}
   minusseStats: {fileID: 11400000, guid: 47593d26829b344de9bc033bf6a95d8d, type: 2}
   monsterStats: {fileID: 11400000, guid: 490e10c244ced4592888c61de8ac7648, type: 2}
-  attackMultiplier: 1
-  ultimateMultiplier: 3
-  lowRandomRange: -5
+  attackMultiplier: 2
+  ultimateMultiplier: 4
+  lowRandomRange: -2
   highRandomRange: 5
   cameraAnimator: {fileID: 160067127}
   allyUI: {fileID: 1482176841}
@@ -4502,6 +4574,15 @@ MonoBehaviour:
   battleCanvas: {fileID: 1115600033}
   choiceRange: 000000000a000000
   term2Range: 0100000003000000
+  startBattle:
+    m_PersistentCalls:
+      m_Calls: []
+  monsterTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  endBattle:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1419517637
 Transform:
   m_ObjectHideFlags: 0

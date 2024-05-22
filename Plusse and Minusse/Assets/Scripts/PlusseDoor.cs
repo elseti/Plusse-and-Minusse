@@ -6,10 +6,21 @@ namespace DefaultNamespace
     public class PlusseDoor : MonoBehaviour
     {
         private bool _inCollider;
+        private bool _freezeTrigger;
+
+        public void FreezeTrigger()
+        {
+            _freezeTrigger = true;
+        }
+        
+        public void UnfreezeTrigger()
+        {
+            _freezeTrigger = false;
+        }
 
         private void Update()
         {
-            if (_inCollider && Input.GetKeyDown(KeyCode.Return))
+            if (_inCollider && Input.GetKeyDown(KeyCode.Return) && !_freezeTrigger)
             {
                 GameManager.instance.StartBattle(BattleManager.BattleType.PLUSSE);
             }
@@ -18,6 +29,14 @@ namespace DefaultNamespace
             if (Input.GetKeyDown(KeyCode.P))
             {
                 GameManager.instance.StartBattle(BattleManager.BattleType.PLUSSE);
+            }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                GameManager.instance.StartBattle(BattleManager.BattleType.MINUSSE);
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                GameManager.instance.StartBattle(BattleManager.BattleType.ALL);
             }
         }
 
