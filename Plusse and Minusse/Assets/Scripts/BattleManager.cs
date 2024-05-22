@@ -74,7 +74,6 @@ namespace DefaultNamespace
         {
             print("in plusse turn");
             battleState = BattleState.PLUSSETURN;
-            battleType = BattleType.PLUSSE;
             
             PlusseSetup();
             
@@ -87,7 +86,6 @@ namespace DefaultNamespace
         {
             print("in minusse turn");
             battleState = BattleState.MINUSSETURN;
-            battleType = BattleType.MINUSSE;
             
             MinusseSetup();
             
@@ -158,11 +156,24 @@ namespace DefaultNamespace
         public int SetChoiceButtons()
         {
             // create problem and answer
-            int operand1 = Random.Range(choiceRange[0], choiceRange[1] - term2Range[1] + 1);
-            int operand2 = Random.Range(term2Range[0], term2Range[1] + 1);
-            string answer = (operand1 + operand2).ToString();
-            term1.text = operand1.ToString();
-            term2.text = operand2.ToString();
+            string answer = "";
+            if (battleState == BattleState.PLUSSETURN) // addition
+            {
+                int operand1 = Random.Range(choiceRange[0], choiceRange[1] - term2Range[1] + 1);
+                int operand2 = Random.Range(term2Range[0], term2Range[1] + 1);
+                answer = (operand1 + operand2).ToString();
+                term1.text = operand1.ToString();
+                term2.text = operand2.ToString();
+            }
+            
+            if (battleState == BattleState.MINUSSETURN) // subtraction
+            {
+                int operand2 = Random.Range(term2Range[0], term2Range[1] + 1);
+                int operand1 = Random.Range(operand2, choiceRange[1] + 1);
+                answer = (operand1 - operand2).ToString();
+                term1.text = operand1.ToString();
+                term2.text = operand2.ToString();
+            }
             
             // assign choices to buttons
             // assign correct answer's index randomly
@@ -179,15 +190,20 @@ namespace DefaultNamespace
                     // create random choices
                     string random = Random.Range(choiceRange[0], choiceRange[1] + 1).ToString();
                     
-                    // make sure no choice is the same
-                    for (int y = 0; y < x; y++)
-                    {
-                        print("y: " + choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text + " x: " + choiceButtons[x].GetComponentInChildren<TextMeshProUGUI>().text);
-                        while (choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text == random) random = Random.Range(choiceRange[0], choiceRange[1]+1).ToString();
-                    }
-                    
                     choiceButtons[x].GetComponentInChildren<TextMeshProUGUI>().text = random;
                     choiceButtons[x].GetComponentInChildren<Button>().onClick.AddListener(OnWrongButton);
+                }
+            }
+            
+            // make sure no choice is the same
+            for (int y = 0; y < choiceButtons.Length; y++)
+            {
+                print("*** y: " + y + " text: " + choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text);
+                if (y != correctIndex && choiceButtons[correctIndex].GetComponentInChildren<TextMeshProUGUI>().text == choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text)
+                {
+                    string random = Random.Range(choiceRange[0], choiceRange[1] + 1).ToString();
+                    while (choiceButtons[correctIndex].GetComponentInChildren<TextMeshProUGUI>().text == random) random = Random.Range(choiceRange[0], choiceRange[1] + 1).ToString();
+                    choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text = random;
                 }
             }
 
@@ -302,6 +318,39 @@ namespace DefaultNamespace
             // TODO - set up monster status/hp
             monsterHP.text = monsterStats.currHealth + "/ " + monsterStats.maxHealth;
         }
+        
+        // Characters getting attacked
+        public void MinusseDamaged()
+        {
+            minusseBG.SetActive(false);
+            plusseHPBar.SetActive(false);
+            minusseHPBar.SetActive(true);
+            monsterHPBar.SetActive(false);
+            monsterHP.gameObject.SetActive(false);
+            allyHP.gameObject.SetActive(true);
+            monsterDamage.gameObject.SetActive(false);
+            allyDamage.gameObject.SetActive(true);
+            SetChoicesActive(false);
+            
+            // TODO - set up Minusse status/hp
+            allyHP.text = minusseStats.currHealth + "/ " + minusseStats.maxHealth;
+        }
+        
+        public void PlusseDamaged()
+        {
+            minusseBG.SetActive(false);
+            plusseHPBar.SetActive(true);
+            minusseHPBar.SetActive(false);
+            monsterHPBar.SetActive(false);
+            monsterHP.gameObject.SetActive(false);
+            allyHP.gameObject.SetActive(true);
+            monsterDamage.gameObject.SetActive(false);
+            allyDamage.gameObject.SetActive(true);
+            SetChoicesActive(false);
+            
+            // TODO - set up Minusse status/hp
+            allyHP.text = plusseStats.currHealth + "/ " + plusseStats.maxHealth;
+        }
 
         public void SetChoicesActive(bool active)
         {
@@ -372,7 +421,46 @@ namespace DefaultNamespace
             yield return new WaitForSeconds(time);
             
             // ally takes damage
+
+            int damage = 0;
+            if (battleType == BattleType.PLUSSE)
+            {
+                damage = CalculateBasicAttack(monsterStats, plusseStats);
+                plusseStats.currHealth -= damage;
+                PlusseDamaged();
+                cameraAnimator.Play("Plusse");
+            }
+            else if (battleType == BattleType.MINUSSE)
+            {
+                damage = CalculateBasicAttack(monsterStats, minusseStats);
+                minusseStats.currHealth -= damage;
+                MinusseDamaged();
+                cameraAnimator.Play("Minusse");
+            }
+            else
+            {
+                int random = Random.Range(0, 2);
+                if (random == 0)
+                {
+                    damage = CalculateBasicAttack(monsterStats, plusseStats);
+                    plusseStats.currHealth -= damage;
+                    PlusseDamaged();
+                    cameraAnimator.Play("Plusse");
+                }
+                else if (random == 1)
+                {
+                    damage = CalculateBasicAttack(monsterStats, minusseStats);
+                    minusseStats.currHealth -= damage;
+                    MinusseDamaged();
+                    cameraAnimator.Play("Minusse");
+                }
+                
+            }
+            
             allyDamage.gameObject.SetActive(true);
+            allyDamage.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
+
+            yield return new WaitForSeconds(time);
             
             if(battleType == BattleType.PLUSSE) PlusseTurn();
             else if(battleType == BattleType.MINUSSE) MinusseTurn();
