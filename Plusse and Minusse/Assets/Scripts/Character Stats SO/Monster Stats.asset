@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   currHealth: 40
-  skillPoints: 10
-  attack: 10
-  defence: 5
+  attack: 7
+  defence: 4

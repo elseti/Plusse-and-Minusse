@@ -59,6 +59,8 @@ namespace DefaultNamespace
         public ParticleSystem minusseDamaged;
         public ParticleSystem plusseDamaged;
         public ParticleSystem monsterExplosion;
+        public ParticleSystem gameOverDebuff;
+        public ParticleSystem winBuff;
 
         public UnityEvent startBattle;
         public UnityEvent monsterTurn;
@@ -230,7 +232,6 @@ namespace DefaultNamespace
             if (battleState == BattleState.PLUSSETURN)
             {
                 damage = CalculateBasicAttack(plusseStats, monsterStats);
-                print("damage from plusse: "+damage);
             }
             else
             {
@@ -245,6 +246,7 @@ namespace DefaultNamespace
 
         public void OnWrongButton()
         {
+            GameManager.instance.PlaySFX(2);
             print("wrong answer");
             cameraAnimator.Play("Monster");
             
@@ -281,6 +283,8 @@ namespace DefaultNamespace
             minusseDamaged.Stop();
             plusseDamaged.Stop();
             monsterExplosion.Stop();
+            gameOverDebuff.Stop();
+            winBuff.Stop();
             
             // play BGM
             GameManager.instance.PlayBGM(1);
@@ -300,7 +304,7 @@ namespace DefaultNamespace
             SetChoicesActive(true);
             
             // TODO - set up Plusse status/hp
-            allyHP.text = plusseStats.currHealth + "/ " + plusseStats.maxHealth;
+            allyHP.text = plusseStats.currHealth + "/" + plusseStats.maxHealth;
         }
         
         public void MinusseSetup()
@@ -317,7 +321,7 @@ namespace DefaultNamespace
             SetChoicesActive(true);
             
             // TODO - set up Minusse status/hp
-            allyHP.text = minusseStats.currHealth + "/ " + minusseStats.maxHealth;
+            allyHP.text = minusseStats.currHealth + "/" + minusseStats.maxHealth;
         }
 
         public void MonsterSetup()
@@ -333,13 +337,14 @@ namespace DefaultNamespace
             SetChoicesActive(false);
             
             // TODO - set up monster status/hp
-            monsterHP.text = monsterStats.currHealth + "/ " + monsterStats.maxHealth;
+            monsterHP.text = monsterStats.currHealth + "/" + monsterStats.maxHealth;
         }
         
         // Characters getting attacked
         public void MinusseDamaged()
         {
             minusseDamaged.Play();
+            GameManager.instance.PlaySFX(1);
             
             minusseBG.SetActive(false);
             plusseHPBar.SetActive(false);
@@ -350,14 +355,21 @@ namespace DefaultNamespace
             monsterDamage.gameObject.SetActive(false);
             allyDamage.gameObject.SetActive(true);
             SetChoicesActive(false);
-            
-            // TODO - set up Minusse status/hp
-            allyHP.text = minusseStats.currHealth + "/ " + minusseStats.maxHealth;
+
+            if (minusseStats.currHealth < 0)
+            {
+                allyHP.text = "0/" + plusseStats.maxHealth;
+            }
+            else
+            {
+                allyHP.text = minusseStats.currHealth + "/" + minusseStats.maxHealth;
+            }
         }
         
         public void PlusseDamaged()
         {
             plusseDamaged.Play();
+            GameManager.instance.PlaySFX(1);
             
             minusseBG.SetActive(false);
             plusseHPBar.SetActive(true);
@@ -369,8 +381,14 @@ namespace DefaultNamespace
             allyDamage.gameObject.SetActive(true);
             SetChoicesActive(false);
             
-            // TODO - set up Minusse status/hp
-            allyHP.text = plusseStats.currHealth + "/ " + plusseStats.maxHealth;
+            if (plusseStats.currHealth < 0)
+            {
+                allyHP.text = "0/" + plusseStats.maxHealth;
+            }
+            else
+            {
+                allyHP.text = plusseStats.currHealth + "/" + plusseStats.maxHealth;
+            }
         }
 
         public void SetChoicesActive(bool active)
@@ -405,30 +423,39 @@ namespace DefaultNamespace
             print("in action wait");
             
             // play aura VFX - player powers up
-            if (battleState == BattleState.PLUSSETURN)
+            if (battleState == BattleState.PLUSSETURN && damage != 0)
             {
                 plusseAura.Play();
-            }
-            else
-            {
-                minusseAura.Play();
-            }
-            monsterHPBar.SetActive(false);
-            monsterDamage.gameObject.SetActive(false);
-            monsterHP.gameObject.SetActive(false);
+                GameManager.instance.PlaySFX(0);
+                
+                monsterHPBar.SetActive(false);
+                monsterDamage.gameObject.SetActive(false);
+                monsterHP.gameObject.SetActive(false);
             
-            yield return new WaitForSeconds(time);
-            
-            // monster takes damage, update monster HP
-            if (battleState == BattleState.PLUSSETURN)
-            {
+                yield return new WaitForSeconds(time);
+                
+                // monster takes damage, update monster HP
+                
                 plusseAura.Stop();
                 plusseMonsterHit.Play();
+                GameManager.instance.PlaySFX(5);
             }
-            else
+            else if(battleState == BattleState.MINUSSETURN && damage != 0)
             {
+                minusseAura.Play();
+                GameManager.instance.PlaySFX(0);
+                
+                monsterHPBar.SetActive(false);
+                monsterDamage.gameObject.SetActive(false);
+                monsterHP.gameObject.SetActive(false);
+            
+                yield return new WaitForSeconds(time);
+                
+                // monster takes damage, update monster HP
+                
                 minusseAura.Stop();
                 minusseMonsterHit.Play();
+                GameManager.instance.PlaySFX(3);
             }
             
             monsterHPBar.SetActive(true);
@@ -447,21 +474,27 @@ namespace DefaultNamespace
             {
                 // game over, monster die
                 monsterExplosion.Play();
+                GameManager.instance.PlaySFX(4);
                 monsterStats.currHealth = 0;
-                monsterHP.text = 0 + "/ " + monsterStats.maxHealth;
+                monsterHP.text = 0 + "/" + monsterStats.maxHealth;
                 battleState = BattleState.WIN;
 
                 yield return new WaitForSeconds(time);
                 plusseMonsterHit.Stop();
                 minusseMonsterHit.Stop();
                 monsterExplosion.Stop();
+
+                winBuff.Play();
+                GameManager.instance.PlaySFX(6);
+                
+                yield return new WaitForSeconds(5f);
                 
                 WinBattle();
             }
             else
             {
                 // continue battle
-                monsterHP.text = monsterStats.currHealth + "/ " + monsterStats.maxHealth;
+                monsterHP.text = monsterStats.currHealth + "/" + monsterStats.maxHealth;
                 yield return new WaitForSeconds(time);
                 plusseMonsterHit.Stop();
                 minusseMonsterHit.Stop();
@@ -477,10 +510,10 @@ namespace DefaultNamespace
         {
             print("in monster wait");
             
+            // monster powers up
             yield return new WaitForSeconds(time);
             
             // ally takes damage
-
             int damage = 0;
             if (battleType == BattleType.PLUSSE)
             {
@@ -524,10 +557,26 @@ namespace DefaultNamespace
             plusseDamaged.Stop();
             minusseDamaged.Stop();
             
-            if(battleType == BattleType.PLUSSE) PlusseTurn();
-            else if(battleType == BattleType.MINUSSE) MinusseTurn();
-            else AllTurn();
+            if (plusseStats.currHealth <= 0 || minusseStats.currHealth <= 0)
+            {
+                // game over, ally dies
+                allyHP.text = 0 + "/" + monsterStats.maxHealth;
+                battleState = BattleState.LOSE;
 
+                gameOverDebuff.Play();
+                GameManager.instance.PlaySFX(8);
+                
+                yield return new WaitForSeconds(time);
+                
+                LoseBattle();
+            }
+            else
+            {
+                if(battleType == BattleType.PLUSSE) PlusseTurn();
+                else if(battleType == BattleType.MINUSSE) MinusseTurn();
+                else AllTurn();
+            }
+            
             yield return null;
         }
     }

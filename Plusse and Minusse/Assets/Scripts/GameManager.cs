@@ -12,6 +12,9 @@ public class GameManager : Singleton<GameManager>
 
     public AudioClip[] bgmList;
     public AudioSource bgmSource;
+
+    public AudioClip[] sfxList;
+    public AudioSource sfxSource;
     
     // Player movement functions
     public void FreezePlayer(){
@@ -41,5 +44,19 @@ public class GameManager : Singleton<GameManager>
     public void StopBGM()
     {
         bgmSource.Stop();
+    }
+
+    public void PlaySFX(int index)
+    {
+        if (index < sfxList.Length)
+        {
+            sfxSource.clip = sfxList[index];
+            sfxSource.Play();
+        }
+    }
+    
+    public void StopSFX()
+    {
+        sfxSource.Stop();
     }
 }
