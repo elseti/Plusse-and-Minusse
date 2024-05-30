@@ -382,14 +382,24 @@ namespace DefaultNamespace
         {
             print("in action wait");
             
+            monsterHPBar.SetActive(false);
+            monsterDamage.gameObject.SetActive(false);
+            monsterHP.gameObject.SetActive(false);
+            
             yield return new WaitForSeconds(time);
             
             // monster takes damage, update monster HP
+            monsterHPBar.SetActive(true);
+            monsterHP.gameObject.SetActive(true);
             monsterDamage.gameObject.SetActive(true);
+            
             monsterDamage.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
             monsterStats.currHealth -= damage;
             print("damage: " + damage);
             print(monsterStats.currHealth);
+            
+            cameraAnimator.Play("Monster");
+            
             
             if (monsterStats.currHealth <= 0)
             {
@@ -406,6 +416,7 @@ namespace DefaultNamespace
             {
                 // continue battle
                 monsterHP.text = monsterStats.currHealth + "/ " + monsterStats.maxHealth;
+                yield return new WaitForSeconds(time);
                 if (battleType == BattleType.ALL && battleState != BattleState.MINUSSETURN) MinusseTurn();
                 else MonsterTurn();
             }
