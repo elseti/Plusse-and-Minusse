@@ -50,6 +50,15 @@ namespace DefaultNamespace
 
         public int[] choiceRange = new int[] { 0, 10 }; // inclusive
         public int[] term2Range = new int[] { 1, 3 };  // inclusive
+        
+        // VFX
+        public ParticleSystem minusseAura;
+        public ParticleSystem plusseAura;
+        public ParticleSystem minusseMonsterHit;
+        public ParticleSystem plusseMonsterHit;
+        public ParticleSystem minusseDamaged;
+        public ParticleSystem plusseDamaged;
+        public ParticleSystem monsterExplosion;
 
         public UnityEvent startBattle;
         public UnityEvent monsterTurn;
@@ -264,6 +273,15 @@ namespace DefaultNamespace
             minusseStats.currHealth = minusseStats.maxHealth;
             monsterStats.currHealth = monsterStats.maxHealth;
             
+            // stop all VFX
+            minusseAura.Stop();
+            plusseAura.Stop();
+            minusseMonsterHit.Stop();
+            plusseMonsterHit.Stop();
+            minusseDamaged.Stop();
+            plusseDamaged.Stop();
+            monsterExplosion.Stop();
+            
             // play BGM
             GameManager.instance.PlayBGM(1);
         }
@@ -321,6 +339,8 @@ namespace DefaultNamespace
         // Characters getting attacked
         public void MinusseDamaged()
         {
+            minusseDamaged.Play();
+            
             minusseBG.SetActive(false);
             plusseHPBar.SetActive(false);
             minusseHPBar.SetActive(true);
@@ -337,6 +357,8 @@ namespace DefaultNamespace
         
         public void PlusseDamaged()
         {
+            plusseDamaged.Play();
+            
             minusseBG.SetActive(false);
             plusseHPBar.SetActive(true);
             minusseHPBar.SetActive(false);
@@ -382,6 +404,15 @@ namespace DefaultNamespace
         {
             print("in action wait");
             
+            // play aura VFX - player powers up
+            if (battleState == BattleState.PLUSSETURN)
+            {
+                plusseAura.Play();
+            }
+            else
+            {
+                minusseAura.Play();
+            }
             monsterHPBar.SetActive(false);
             monsterDamage.gameObject.SetActive(false);
             monsterHP.gameObject.SetActive(false);
@@ -389,6 +420,17 @@ namespace DefaultNamespace
             yield return new WaitForSeconds(time);
             
             // monster takes damage, update monster HP
+            if (battleState == BattleState.PLUSSETURN)
+            {
+                plusseAura.Stop();
+                plusseMonsterHit.Play();
+            }
+            else
+            {
+                minusseAura.Stop();
+                minusseMonsterHit.Play();
+            }
+            
             monsterHPBar.SetActive(true);
             monsterHP.gameObject.SetActive(true);
             monsterDamage.gameObject.SetActive(true);
@@ -404,11 +446,15 @@ namespace DefaultNamespace
             if (monsterStats.currHealth <= 0)
             {
                 // game over, monster die
+                monsterExplosion.Play();
                 monsterStats.currHealth = 0;
                 monsterHP.text = 0 + "/ " + monsterStats.maxHealth;
                 battleState = BattleState.WIN;
 
                 yield return new WaitForSeconds(time);
+                plusseMonsterHit.Stop();
+                minusseMonsterHit.Stop();
+                monsterExplosion.Stop();
                 
                 WinBattle();
             }
@@ -417,6 +463,9 @@ namespace DefaultNamespace
                 // continue battle
                 monsterHP.text = monsterStats.currHealth + "/ " + monsterStats.maxHealth;
                 yield return new WaitForSeconds(time);
+                plusseMonsterHit.Stop();
+                minusseMonsterHit.Stop();
+                
                 if (battleType == BattleType.ALL && battleState != BattleState.MINUSSETURN) MinusseTurn();
                 else MonsterTurn();
             }
@@ -471,6 +520,9 @@ namespace DefaultNamespace
             allyDamage.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
 
             yield return new WaitForSeconds(time);
+            
+            plusseDamaged.Stop();
+            minusseDamaged.Stop();
             
             if(battleType == BattleType.PLUSSE) PlusseTurn();
             else if(battleType == BattleType.MINUSSE) MinusseTurn();

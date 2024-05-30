@@ -1020,6 +1020,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354844235}
     m_Modifications:
+    - target: {fileID: 6642199199589531581, guid: 354b6251e950209409c75ab984acf000,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7053385775836331393, guid: 354b6251e950209409c75ab984acf000,
         type: 3}
       propertyPath: m_Name
@@ -1088,6 +1093,12 @@ PrefabInstance:
 --- !u!4 &226676798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7909250533478703700, guid: 354b6251e950209409c75ab984acf000,
+    type: 3}
+  m_PrefabInstance: {fileID: 226676797}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &226676799 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6642199199589531581, guid: 354b6251e950209409c75ab984acf000,
     type: 3}
   m_PrefabInstance: {fileID: 226676797}
   m_PrefabAsset: {fileID: 0}
@@ -1461,6 +1472,11 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4596544553357837919, guid: 8eb503696b886e04faff8fc0f480d473,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1469,6 +1485,12 @@ PrefabInstance:
 --- !u!4 &285232699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3986179179329749341, guid: 8eb503696b886e04faff8fc0f480d473,
+    type: 3}
+  m_PrefabInstance: {fileID: 285232698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &285232700 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4596544553357837919, guid: 8eb503696b886e04faff8fc0f480d473,
     type: 3}
   m_PrefabInstance: {fileID: 285232698}
   m_PrefabAsset: {fileID: 0}
@@ -1980,8 +2002,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.014690048, y: -0.0009018816, z: -0.000012809049, w: -0.9998917}
-  m_LocalPosition: {x: 113.50232, y: -4.2143345, z: -9.390652}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -18.220001, y: -1.5000001, z: -17.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3120,6 +3142,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354844235}
     m_Modifications:
+    - target: {fileID: 205611106216187159, guid: 4d9a3b35b3bc07649b697df7fb497b6d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5862613817031353211, guid: 4d9a3b35b3bc07649b697df7fb497b6d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3170,10 +3197,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6469354921825657977, guid: 4d9a3b35b3bc07649b697df7fb497b6d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7131401307255788800, guid: 4d9a3b35b3bc07649b697df7fb497b6d,
         type: 3}
       propertyPath: m_Name
       value: Minusse Lightning aura
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445978410991379322, guid: 4d9a3b35b3bc07649b697df7fb497b6d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3183,6 +3220,12 @@ PrefabInstance:
 --- !u!4 &819065799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5862613817031353211, guid: 4d9a3b35b3bc07649b697df7fb497b6d,
+    type: 3}
+  m_PrefabInstance: {fileID: 819065798}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &819065800 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6469354921825657977, guid: 4d9a3b35b3bc07649b697df7fb497b6d,
     type: 3}
   m_PrefabInstance: {fileID: 819065798}
   m_PrefabAsset: {fileID: 0}
@@ -3504,6 +3547,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354844235}
     m_Modifications:
+    - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3071203166238714258, guid: 3407e378c048bb5438424b28c7740b48,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3567,6 +3620,12 @@ PrefabInstance:
 --- !u!4 &975326051 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3071203166238714258, guid: 3407e378c048bb5438424b28c7740b48,
+    type: 3}
+  m_PrefabInstance: {fileID: 975326050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &975326052 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48,
     type: 3}
   m_PrefabInstance: {fileID: 975326050}
   m_PrefabAsset: {fileID: 0}
@@ -4236,11 +4295,16 @@ PrefabInstance:
     - target: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98,
         type: 3}
       propertyPath: m_Name
-      value: Minusse Lighting hit
+      value: Minusse Lightning hit
       objectReference: {fileID: 0}
     - target: {fileID: 4033287822461114141, guid: a164e676dbbd6e54587237e619372c98,
         type: 3}
       propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033287822461114141, guid: a164e676dbbd6e54587237e619372c98,
+        type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4251,6 +4315,12 @@ PrefabInstance:
 --- !u!4 &1223500718 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388872548669538631, guid: a164e676dbbd6e54587237e619372c98,
+    type: 3}
+  m_PrefabInstance: {fileID: 1223500717}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1223500719 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4033287822461114141, guid: a164e676dbbd6e54587237e619372c98,
     type: 3}
   m_PrefabInstance: {fileID: 1223500717}
   m_PrefabAsset: {fileID: 0}
@@ -4741,11 +4811,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 819065799}
+  - {fileID: 226676798}
   - {fileID: 975326051}
   - {fileID: 1797113208}
   - {fileID: 285232699}
-  - {fileID: 819065799}
-  - {fileID: 226676798}
   - {fileID: 1889936597}
   - {fileID: 1223500718}
   m_Father: {fileID: 0}
@@ -5016,6 +5086,13 @@ MonoBehaviour:
   battleCanvas: {fileID: 1115600033}
   choiceRange: 000000000a000000
   term2Range: 0100000003000000
+  minusseAura: {fileID: 819065800}
+  plusseAura: {fileID: 226676799}
+  minusseMonsterHit: {fileID: 1223500719}
+  plusseMonsterHit: {fileID: 1889936598}
+  minusseDamaged: {fileID: 1797113209}
+  plusseDamaged: {fileID: 975326052}
+  monsterExplosion: {fileID: 285232700}
   startBattle:
     m_PersistentCalls:
       m_Calls: []
@@ -5991,6 +6068,11 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3071203166238714258, guid: 3407e378c048bb5438424b28c7740b48,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -6069,6 +6151,12 @@ PrefabInstance:
 --- !u!4 &1797113208 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3071203166238714258, guid: 3407e378c048bb5438424b28c7740b48,
+    type: 3}
+  m_PrefabInstance: {fileID: 1797113207}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1797113209 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48,
     type: 3}
   m_PrefabInstance: {fileID: 1797113207}
   m_PrefabAsset: {fileID: 0}
@@ -6309,6 +6397,11 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2319384772025575332, guid: 98c4704d0fd7211449bcf5c451095a60,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4535006216103734310, guid: 98c4704d0fd7211449bcf5c451095a60,
         type: 3}
       propertyPath: m_Name
@@ -6322,6 +6415,12 @@ PrefabInstance:
 --- !u!4 &1889936597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 328558227413381630, guid: 98c4704d0fd7211449bcf5c451095a60,
+    type: 3}
+  m_PrefabInstance: {fileID: 1889936596}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1889936598 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2319384772025575332, guid: 98c4704d0fd7211449bcf5c451095a60,
     type: 3}
   m_PrefabInstance: {fileID: 1889936596}
   m_PrefabAsset: {fileID: 0}
