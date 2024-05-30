@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -165,8 +166,7 @@ namespace DefaultNamespace
                 term1.text = operand1.ToString();
                 term2.text = operand2.ToString();
             }
-            
-            if (battleState == BattleState.MINUSSETURN) // subtraction
+            else if (battleState == BattleState.MINUSSETURN) // subtraction
             {
                 int operand2 = Random.Range(term2Range[0], term2Range[1] + 1);
                 int operand1 = Random.Range(operand2, choiceRange[1] + 1);
@@ -174,12 +174,21 @@ namespace DefaultNamespace
                 term1.text = operand1.ToString();
                 term2.text = operand2.ToString();
             }
-            
-            // assign choices to buttons
+
             // assign correct answer's index randomly
-            int correctIndex = Random.Range(0, 3);
+            int correctIndex = Random.Range(0, choiceButtons.Length);
+
+            // create a HashSet to store unique choices
+            HashSet<int> uniqueChoices = new HashSet<int>();
+
+            // add the correct answer to the HashSet
+            uniqueChoices.Add(int.Parse(answer));
+
             for (int x = 0; x < choiceButtons.Length; x++)
             {
+                // Clear previous listeners
+                choiceButtons[x].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+
                 if (x == correctIndex)
                 {
                     choiceButtons[x].GetComponentInChildren<TextMeshProUGUI>().text = answer;
@@ -187,28 +196,18 @@ namespace DefaultNamespace
                 }
                 else
                 {
-                    // create random choices
-                    string random = Random.Range(choiceRange[0], choiceRange[1] + 1).ToString();
-                    
-                    choiceButtons[x].GetComponentInChildren<TextMeshProUGUI>().text = random;
+                    // Generate a unique random choice
+                    int randomChoice;
+                    do { randomChoice = Random.Range(choiceRange[0], choiceRange[1] + 1); } while (uniqueChoices.Contains(randomChoice));
+
+                    uniqueChoices.Add(randomChoice);
+                    choiceButtons[x].GetComponentInChildren<TextMeshProUGUI>().text = randomChoice.ToString();
                     choiceButtons[x].GetComponentInChildren<Button>().onClick.AddListener(OnWrongButton);
-                }
-            }
-            
-            // make sure no choice is the same
-            for (int y = 0; y < choiceButtons.Length; y++)
-            {
-                print("*** y: " + y + " text: " + choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text);
-                if (y != correctIndex && choiceButtons[correctIndex].GetComponentInChildren<TextMeshProUGUI>().text == choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text)
-                {
-                    string random = Random.Range(choiceRange[0], choiceRange[1] + 1).ToString();
-                    while (choiceButtons[correctIndex].GetComponentInChildren<TextMeshProUGUI>().text == random) random = Random.Range(choiceRange[0], choiceRange[1] + 1).ToString();
-                    choiceButtons[y].GetComponentInChildren<TextMeshProUGUI>().text = random;
                 }
             }
 
             battleCanvas.gameObject.SetActive(true);
-            
+
             return correctIndex;
         }
         
