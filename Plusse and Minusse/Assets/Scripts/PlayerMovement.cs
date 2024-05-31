@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -61,6 +62,16 @@ public class PlayerMovement : MonoBehaviour
             _playerAnimator.Play("Player Idle");
         }
         
+    }
+
+    public void OnRightClick()
+    {
+        _horizontal = 1;
+    }
+
+    public void OnRightRelease()
+    {
+        _horizontal = 0;
     }
 
     public void FreezePlayer()
