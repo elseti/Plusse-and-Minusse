@@ -27,6 +27,10 @@ namespace DefaultNamespace
         public int highRandomRange = 5;
 
         public Animator cameraAnimator;
+        public Animator golemAnimator; // for blinking effects
+        public Animator plusseAnimator;
+        public Animator minusseAnimator;
+        
         public GameObject allyUI;
         public GameObject monsterUI;
         public TextMeshProUGUI term1;
@@ -344,6 +348,7 @@ namespace DefaultNamespace
         public void MinusseDamaged()
         {
             minusseDamaged.Play();
+            minusseAnimator.Play("Hit");
             GameManager.instance.PlaySFX(1);
             
             minusseBG.SetActive(false);
@@ -369,6 +374,7 @@ namespace DefaultNamespace
         public void PlusseDamaged()
         {
             plusseDamaged.Play();
+            plusseAnimator.Play("Hit");
             GameManager.instance.PlaySFX(1);
             
             minusseBG.SetActive(false);
@@ -467,8 +473,9 @@ namespace DefaultNamespace
             print("damage: " + damage);
             print(monsterStats.currHealth);
             
+            // monster damaged
             cameraAnimator.Play("Monster");
-            
+            golemAnimator.Play("Hit");
             
             if (monsterStats.currHealth <= 0)
             {

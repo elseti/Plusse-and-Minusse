@@ -4591,6 +4591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1181097558}
   - component: {fileID: 1181097559}
+  - component: {fileID: 1181097560}
   m_Layer: 0
   m_Name: golem
   m_TagString: Untagged
@@ -4665,6 +4666,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1181097560
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181097557}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96769e32661b94e91ae1d3daa9c7e83f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1223500717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4780,6 +4802,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1229687699}
   - component: {fileID: 1229687698}
+  - component: {fileID: 1229687701}
+  - component: {fileID: 1229687700}
   m_Layer: 0
   m_Name: minusse
   m_TagString: Untagged
@@ -4854,6 +4878,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1948596765}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &1229687700
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229687697}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 1f5a905af930b411b92403b4609e90a8, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!95 &1229687701
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229687697}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96769e32661b94e91ae1d3daa9c7e83f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1237761005
 GameObject:
   m_ObjectHideFlags: 0
@@ -5612,7 +5672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1402379043
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5747,6 +5807,9 @@ MonoBehaviour:
   lowRandomRange: -2
   highRandomRange: 5
   cameraAnimator: {fileID: 160067127}
+  golemAnimator: {fileID: 1181097560}
+  plusseAnimator: {fileID: 1859249446}
+  minusseAnimator: {fileID: 1229687701}
   allyUI: {fileID: 1482176841}
   monsterUI: {fileID: 1169848503}
   term1: {fileID: 285677503}
@@ -7204,6 +7267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1859249445}
   - component: {fileID: 1859249444}
+  - component: {fileID: 1859249446}
   m_Layer: 0
   m_Name: plusse
   m_TagString: Untagged
@@ -7278,6 +7342,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1948596765}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1859249446
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859249443}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96769e32661b94e91ae1d3daa9c7e83f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1889936596
 PrefabInstance:
   m_ObjectHideFlags: 0
