@@ -26,18 +26,18 @@ namespace DefaultNamespace
             }
             
             // for testing
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                GameManager.instance.StartBattle(BattleManager.BattleType.PLUSSE);
-            }
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                GameManager.instance.StartBattle(BattleManager.BattleType.MINUSSE);
-            }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                GameManager.instance.StartBattle(BattleManager.BattleType.ALL);
-            }
+            // if (Input.GetKeyDown(KeyCode.P))
+            // {
+            //     GameManager.instance.StartBattle(BattleManager.BattleType.PLUSSE);
+            // }
+            // if (Input.GetKeyDown(KeyCode.M))
+            // {
+            //     GameManager.instance.StartBattle(BattleManager.BattleType.MINUSSE);
+            // }
+            // if (Input.GetKeyDown(KeyCode.L))
+            // {
+            //     GameManager.instance.StartBattle(BattleManager.BattleType.ALL);
+            // }
         }
 
         private void OnTriggerEnter(Collider other)

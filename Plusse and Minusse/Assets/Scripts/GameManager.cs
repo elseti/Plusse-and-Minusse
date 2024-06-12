@@ -91,17 +91,22 @@ public class GameManager : Singleton<GameManager>
             int lowTermSet = int.Parse(lowTerm.text.Substring(0, lowTerm.text.Length - 1));
             int highTermSet = int.Parse(highTerm.text.Substring(0, highTerm.text.Length - 1));
 
-            print(lowChoiceSet);
+            bool inRange = (lowChoiceSet / 1000) < 1 && (highChoiceSet / 1000) < 1 && (lowTermSet / 1000) < 1 &&
+                           (highTermSet / 1000) < 1;
 
-            if (lowChoiceSet > highChoiceSet || lowTermSet > highTermSet)
+            if (lowChoiceSet > highChoiceSet || lowTermSet > highTermSet || !inRange) 
             {
                 errorText.text = "Invalid range.";
             }
-
-            battleManager.choiceRange[0] = lowChoiceSet;
-            battleManager.choiceRange[1] = highChoiceSet;
-            battleManager.term2Range[0] = lowTermSet;
-            battleManager.term2Range[1] = highTermSet;
+            else
+            {
+                battleManager.choiceRange[0] = lowChoiceSet;
+                battleManager.choiceRange[1] = highChoiceSet;
+                battleManager.term2Range[0] = lowTermSet;
+                battleManager.term2Range[1] = highTermSet;
+                
+                errorText.text = "Saved!";
+            }
         }
         catch (Exception e)
         {
@@ -115,6 +120,7 @@ public class GameManager : Singleton<GameManager>
         movementCanvas.gameObject.SetActive(true);
         settingCanvas.gameObject.SetActive(false);
         UnfreezePlayer();
+        errorText.text = "";
     }
 
     

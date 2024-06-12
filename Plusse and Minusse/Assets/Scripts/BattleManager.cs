@@ -167,6 +167,8 @@ namespace DefaultNamespace
             
             endBattle.Invoke();
             BattleSetup();
+            
+            GameManager.instance.movementCanvas.gameObject.SetActive(true);
             GameManager.instance.UnfreezePlayer();
             GameManager.instance.PlayBGM(0);
         }
@@ -268,6 +270,8 @@ namespace DefaultNamespace
         // Set up for start / plusse / minusse / monster UI
         public void BattleSetup()
         {
+            GameManager.instance.movementCanvas.gameObject.SetActive(false);
+            
             plusseBG.SetActive(false);
             minusseBG.SetActive(false);
             plusseHPBar.SetActive(false);

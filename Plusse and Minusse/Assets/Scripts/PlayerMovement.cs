@@ -10,6 +10,11 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioClip[] footstepsList;
 
+    public bool isMobile;
+    public GameObject leftArrow;
+    public GameObject rightArrow;
+    public GameObject enterButton;
+
     private float _horizontal;
     private Animator _playerAnimator;
     private AudioSource _playerAudio;
@@ -33,6 +38,22 @@ public class PlayerMovement : MonoBehaviour
             _playerAudio.PlayOneShot(footstepsList[Random.Range(0, footstepsList.Length)]);
             _timeElapsed = 0;
         }
+
+        // if (isMobile)
+        // {
+        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //     RaycastHit hit;
+        //     if (Physics.Raycast(ray, out hit))
+        //     {
+        //         print(hit.collider.gameObject.name);
+        //         if (hit.collider.gameObject.name == "Left Button")
+        //         {
+        //             print("hit left");
+        //             _isMoving = true;
+        //             _horizontal = -1;
+        //         }
+        //     }
+        // }
     }
 
     void FixedUpdate()
@@ -61,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
         else{
             _playerAnimator.Play("Player Idle");
         }
+
         
     }
 
