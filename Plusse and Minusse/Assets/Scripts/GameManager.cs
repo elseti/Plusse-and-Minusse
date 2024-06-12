@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,6 +17,18 @@ public class GameManager : Singleton<GameManager>
 
     public AudioClip[] sfxList;
     public AudioSource sfxSource;
+    
+    // settings
+    public BattleManager battleManager;
+    public Canvas movementCanvas;
+    public Canvas settingCanvas;
+    public TextMeshProUGUI lowChoice;
+    public TextMeshProUGUI highChoice;
+    public TextMeshProUGUI lowTerm;
+    public TextMeshProUGUI highTerm;
+    public TextMeshProUGUI errorText;
+
+    
     
     // Player movement functions
     public void FreezePlayer(){
@@ -59,4 +73,49 @@ public class GameManager : Singleton<GameManager>
     {
         sfxSource.Stop();
     }
+    
+    // Settings functions
+    public void OnSettingsClicked()
+    {
+        movementCanvas.gameObject.SetActive(false);
+        settingCanvas.gameObject.SetActive(true);
+        FreezePlayer();
+    }
+    
+    public void OnSettingsSaved()
+    {
+        try
+        {
+            int lowChoiceSet = int.Parse(lowChoice.text.Substring(0, lowChoice.text.Length - 1));
+            int highChoiceSet = int.Parse(highChoice.text.Substring(0, highChoice.text.Length - 1));
+            int lowTermSet = int.Parse(lowTerm.text.Substring(0, lowTerm.text.Length - 1));
+            int highTermSet = int.Parse(highTerm.text.Substring(0, highTerm.text.Length - 1));
+
+            print(lowChoiceSet);
+
+            if (lowChoiceSet > highChoiceSet || lowTermSet > highTermSet)
+            {
+                errorText.text = "Invalid range.";
+            }
+
+            battleManager.choiceRange[0] = lowChoiceSet;
+            battleManager.choiceRange[1] = highChoiceSet;
+            battleManager.term2Range[0] = lowTermSet;
+            battleManager.term2Range[1] = highTermSet;
+        }
+        catch (Exception e)
+        {
+            print(e);
+            errorText.text = "Invalid input.";
+        }
+    }
+
+    public void OnSettingsQuit()
+    {
+        movementCanvas.gameObject.SetActive(true);
+        settingCanvas.gameObject.SetActive(false);
+        UnfreezePlayer();
+    }
+
+    
 }
