@@ -40,6 +40,11 @@ namespace DefaultNamespace
         public TextMeshProUGUI allyHP;
         public GameObject monsterHPBar;
         public TextMeshProUGUI monsterHP;
+        
+        // bar image
+        public GameObject minusseHP;
+        public GameObject plusseHP;
+        public GameObject golemHP;
 
         public GameObject allyDamage;
         public GameObject monsterDamage;
@@ -270,6 +275,9 @@ namespace DefaultNamespace
             monsterHPBar.SetActive(false);
             monsterHP.gameObject.SetActive(false);
             allyHP.gameObject.SetActive(false);
+            plusseHP.SetActive(false);
+            minusseHP.SetActive(false);
+            golemHP.SetActive(false);
             SetChoicesActive(false);
             monsterDamage.gameObject.SetActive(false);
             allyDamage.gameObject.SetActive(false);
@@ -292,6 +300,11 @@ namespace DefaultNamespace
             
             // play BGM
             GameManager.instance.PlayBGM(1);
+            
+            // resize HP bar
+            plusseHP.transform.localScale = new Vector3(1f, 1f, 1f);
+            minusseHP.transform.localScale = new Vector3(1f, 1f, 1f);
+            golemHP.transform.localScale = new Vector3(1f, 1f, 1f);
         }
         
         public void PlusseSetup()
@@ -306,8 +319,10 @@ namespace DefaultNamespace
             monsterDamage.gameObject.SetActive(false);
             allyDamage.gameObject.SetActive(false);
             SetChoicesActive(true);
+            plusseHP.SetActive(true);
+            minusseHP.SetActive(false);
+            golemHP.SetActive(false);
             
-            // TODO - set up Plusse status/hp
             allyHP.text = plusseStats.currHealth + "/" + plusseStats.maxHealth;
         }
         
@@ -323,6 +338,9 @@ namespace DefaultNamespace
             monsterDamage.gameObject.SetActive(false);
             allyDamage.gameObject.SetActive(false);
             SetChoicesActive(true);
+            minusseHP.SetActive(true);
+            plusseHP.SetActive(false);
+            golemHP.SetActive(false);
             
             // TODO - set up Minusse status/hp
             allyHP.text = minusseStats.currHealth + "/" + minusseStats.maxHealth;
@@ -338,6 +356,7 @@ namespace DefaultNamespace
             monsterHPBar.SetActive(true);
             monsterHP.gameObject.SetActive(true);
             allyHP.gameObject.SetActive(false);
+            golemHP.SetActive(true);
             SetChoicesActive(false);
             
             // TODO - set up monster status/hp
@@ -351,9 +370,11 @@ namespace DefaultNamespace
             minusseAnimator.Play("Hit");
             GameManager.instance.PlaySFX(1);
             
+            golemHP.SetActive(false);
             minusseBG.SetActive(false);
             plusseHPBar.SetActive(false);
             minusseHPBar.SetActive(true);
+            minusseHP.SetActive(true);
             monsterHPBar.SetActive(false);
             monsterHP.gameObject.SetActive(false);
             allyHP.gameObject.SetActive(true);
@@ -363,10 +384,13 @@ namespace DefaultNamespace
 
             if (minusseStats.currHealth < 0)
             {
+                plusseHP.transform.localScale = new Vector3(0f, 1f, 1f);
                 allyHP.text = "0/" + plusseStats.maxHealth;
             }
             else
             {
+                float fraction = (float) minusseStats.currHealth / (float) minusseStats.maxHealth;
+                minusseHP.transform.localScale = new Vector3(fraction, 1f, 1f);
                 allyHP.text = minusseStats.currHealth + "/" + minusseStats.maxHealth;
             }
         }
@@ -377,8 +401,10 @@ namespace DefaultNamespace
             plusseAnimator.Play("Hit");
             GameManager.instance.PlaySFX(1);
             
+            golemHP.SetActive(false);
             minusseBG.SetActive(false);
             plusseHPBar.SetActive(true);
+            plusseHP.SetActive(true);
             minusseHPBar.SetActive(false);
             monsterHPBar.SetActive(false);
             monsterHP.gameObject.SetActive(false);
@@ -387,12 +413,18 @@ namespace DefaultNamespace
             allyDamage.gameObject.SetActive(true);
             SetChoicesActive(false);
             
+            
             if (plusseStats.currHealth < 0)
             {
+                plusseHP.transform.localScale = new Vector3(0f, 1f, 1f);
                 allyHP.text = "0/" + plusseStats.maxHealth;
             }
             else
             {
+                // HP bar reduce
+                
+                float fraction = (float) plusseStats.currHealth / (float) plusseStats.maxHealth;
+                plusseHP.transform.localScale = new Vector3(fraction, 1f, 1f);
                 allyHP.text = plusseStats.currHealth + "/" + plusseStats.maxHealth;
             }
         }
@@ -414,19 +446,14 @@ namespace DefaultNamespace
             int damage = (attacker.attack * attackMultiplier + Random.Range(lowRandomRange, highRandomRange)) - (receiver.defence + Random.Range(lowRandomRange, highRandomRange));
             return damage;
         }
-        
-        private int CalculateUltimateAttack(CharacterStats attacker, CharacterStats receiver)
-        {
-            int damage = (attacker.attack * attackMultiplier * ultimateMultiplier + Random.Range(lowRandomRange, highRandomRange)) - (receiver.defence + Random.Range(lowRandomRange, highRandomRange));
-            if(damage < 0) damage = 0;
-            return damage;
-        }
-            
             
         // Helper coroutines
         public IEnumerator ActionWait(float time, int damage)
         {
             print("in action wait");
+            golemHP.SetActive(false);
+            plusseHP.SetActive(false);
+            minusseHP.SetActive(false);
             
             // play aura VFX - player powers up
             if (battleState == BattleState.PLUSSETURN && damage != 0)
@@ -437,7 +464,7 @@ namespace DefaultNamespace
                 monsterHPBar.SetActive(false);
                 monsterDamage.gameObject.SetActive(false);
                 monsterHP.gameObject.SetActive(false);
-            
+                
                 yield return new WaitForSeconds(time);
                 
                 // monster takes damage, update monster HP
@@ -467,19 +494,20 @@ namespace DefaultNamespace
             monsterHPBar.SetActive(true);
             monsterHP.gameObject.SetActive(true);
             monsterDamage.gameObject.SetActive(true);
+            golemHP.SetActive(true);
             
             monsterDamage.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
             monsterStats.currHealth -= damage;
-            print("damage: " + damage);
-            print(monsterStats.currHealth);
-            
+
             // monster damaged
             cameraAnimator.Play("Monster");
-            golemAnimator.Play("Hit");
+            if(damage != 0) golemAnimator.Play("Hit");
             
             if (monsterStats.currHealth <= 0)
             {
                 // game over, monster die
+                golemHP.transform.localScale = new Vector3(0f, 1f, 1f);
+                
                 monsterExplosion.Play();
                 GameManager.instance.PlaySFX(4);
                 monsterStats.currHealth = 0;
@@ -501,6 +529,10 @@ namespace DefaultNamespace
             else
             {
                 // continue battle
+                float fraction = (float) monsterStats.currHealth / (float) monsterStats.maxHealth;
+                golemHP.transform.localScale = new Vector3(fraction, 1f, 1f);
+                
+                golemHP.SetActive(true);
                 monsterHP.text = monsterStats.currHealth + "/" + monsterStats.maxHealth;
                 yield return new WaitForSeconds(time);
                 plusseMonsterHit.Stop();
@@ -524,6 +556,7 @@ namespace DefaultNamespace
             int damage = 0;
             if (battleType == BattleType.PLUSSE)
             {
+                plusseHP.SetActive(true);
                 damage = CalculateBasicAttack(monsterStats, plusseStats);
                 plusseStats.currHealth -= damage;
                 PlusseDamaged();
@@ -531,6 +564,7 @@ namespace DefaultNamespace
             }
             else if (battleType == BattleType.MINUSSE)
             {
+                minusseHP.SetActive(true);
                 damage = CalculateBasicAttack(monsterStats, minusseStats);
                 minusseStats.currHealth -= damage;
                 MinusseDamaged();
@@ -553,7 +587,6 @@ namespace DefaultNamespace
                     MinusseDamaged();
                     cameraAnimator.Play("Minusse");
                 }
-                
             }
             
             allyDamage.gameObject.SetActive(true);
