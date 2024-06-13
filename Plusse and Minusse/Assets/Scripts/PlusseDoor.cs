@@ -38,6 +38,7 @@ namespace DefaultNamespace
             // {
             //     GameManager.instance.StartBattle(BattleManager.BattleType.ALL);
             // }
+            
         }
 
         private void OnTriggerEnter(Collider other)

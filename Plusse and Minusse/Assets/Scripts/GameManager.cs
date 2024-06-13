@@ -92,7 +92,7 @@ public class GameManager : Singleton<GameManager>
             int highTermSet = int.Parse(highTerm.text.Substring(0, highTerm.text.Length - 1));
 
             bool inRange = (lowChoiceSet / 1000) < 1 && (highChoiceSet / 1000) < 1 && (lowTermSet / 1000) < 1 &&
-                           (highTermSet / 1000) < 1;
+                           (highTermSet / 1000) < 1 && (highTermSet - lowTermSet) > 1 && (highChoiceSet - lowChoiceSet) > 0;
 
             if (lowChoiceSet > highChoiceSet || lowTermSet > highTermSet || !inRange) 
             {
