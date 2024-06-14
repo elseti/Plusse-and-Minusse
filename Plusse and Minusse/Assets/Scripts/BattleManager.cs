@@ -182,7 +182,7 @@ namespace DefaultNamespace
             string answer = "";
             if (battleState == BattleState.PLUSSETURN) // addition
             {
-                int operand1 = Random.Range(choiceRange[0], choiceRange[1] - term2Range[1] + 1);
+                int operand1 = Random.Range(choiceRange[0], choiceRange[1] + 1); // 0, 3-3+1 ; choice range: 1-3, term 2 range: 1-3
                 int operand2 = Random.Range(term2Range[0], term2Range[1] + 1);
                 answer = (operand1 + operand2).ToString();
                 term1.text = operand1.ToString();
